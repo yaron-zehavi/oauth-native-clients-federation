@@ -9,7 +9,7 @@ Expires: 21 August 2026                                             Okta
                                                         17 February 2026
 
 
-    OAuth 2.0 direct interation for native clients using federation
+    OAuth 2.0 direct interaction for native clients using federation
           draft-zehavi-oauth-native-clients-federation-latest
 
 Abstract
@@ -112,7 +112,7 @@ Table of Contents
 
 1.  Introduction
 
-   This document, OAuth 2.0 direct interation for native clients using
+   This document, OAuth 2.0 direct interaction for native clients using
    federation, extends FiPA [I-D.ietf-oauth-first-party-apps] to enable
    federation based flows, while retaining client's direct interaction
    with end-user.
