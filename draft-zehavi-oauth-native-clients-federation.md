@@ -1,5 +1,5 @@
 ---
-title: "OAuth 2.0 direct interation for native clients using federation"
+title: "OAuth 2.0 direct interaction for native clients using federation"
 abbrev: "OAuth native clients with federation"
 category: std
 
@@ -72,7 +72,7 @@ the usage of another native app for user interaction.
 
 # Introduction
 
-This document, OAuth 2.0 direct interation for native clients using federation,
+This document, OAuth 2.0 direct interaction for native clients using federation,
 extends FiPA {{I-D.ietf-oauth-first-party-apps}} to enable federation based flows,
 while retaining client's direct interaction with end-user.
 
