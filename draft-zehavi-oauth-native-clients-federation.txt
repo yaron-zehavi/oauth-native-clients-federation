@@ -5,8 +5,8 @@
 Web Authorization Protocol                                     Y. Zehavi
 Internet-Draft                             Raiffeisen Bank International
 Intended status: Standards Track                              A. Parecki
-Expires: 21 August 2026                                             Okta
-                                                        17 February 2026
+Expires: 1 September 2026                                           Okta
+                                                        28 February 2026
 
 
     OAuth 2.0 direct interaction for native clients using federation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2026.
+   This Internet-Draft will expire on 1 September 2026.
 
 Copyright Notice
 
@@ -451,12 +451,16 @@ Table of Contents
    *  Inspect client's metadata for redirect_uri's and validate
       *native_callback_uri* is included among them.
 
-   When the client is invoked on its native_callback_uri, it shall
-   regard the invocation as a response from the authorization server
-   which instructed _redirect_to_app_. Therefore, obtained response's
-   audience is the authorization server which federated the client to
-   the authorization server which redirected the client to the app.  See
-   Section 4.3.1 for details.
+   When the client is invoked on its native_callback_uri, the obtained
+   response's audience is:
+
+   *  If client has been federated, the audience is the authorization
+      server which federated the client to the authorization server,
+      which then instructed _redirect_to_app_. See Section 4.3.1 for
+      details.
+
+   *  Otherwise, the audience is the authorization server which then
+      instructed _redirect_to_app_.
 
    Example URI used to invoke of client app on its claimed
    native_callback_uri:
@@ -632,9 +636,9 @@ Table of Contents
    [I-D.ietf-oauth-first-party-apps]
               Parecki, A., Fletcher, G., and P. Kasselman, "OAuth 2.0
               for First-Party Applications", Work in Progress, Internet-
-              Draft, draft-ietf-oauth-first-party-apps-02, 20 October
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              oauth-first-party-apps-02>.
+              Draft, draft-ietf-oauth-first-party-apps-03, 27 February
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              oauth-first-party-apps-03>.
 
    [IANA.oauth-parameters]
               IANA, "OAuth Parameters",
