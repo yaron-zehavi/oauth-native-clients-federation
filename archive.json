@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-10T01:06:21.253407+00:00",
+  "timestamp": "2026-03-12T01:04:32.482162+00:00",
   "repo": "yaron-zehavi/oauth-native-clients-federation",
   "labels": [
     {
@@ -49,6 +49,23 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDORSZN3c7xc0k9",
+      "title": "Redirect to app should use deep link",
+      "url": "https://github.com/yaron-zehavi/oauth-native-clients-federation/issues/1",
+      "state": "OPEN",
+      "author": "Mawdie",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi,\n\nI think it should say `deep_link` here.\n\nhttps://github.com/yaron-zehavi/oauth-native-clients-federation/blob/04f2a01dad8e0fc309b9cc7b6b04a33d731c5453/draft-zehavi-oauth-native-clients-federation.md?plain=1#L214",
+      "createdAt": "2026-03-10T10:33:18Z",
+      "updatedAt": "2026-03-10T10:33:18Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
