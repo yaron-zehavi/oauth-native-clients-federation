@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-15T01:21:02.630625+00:00",
+  "timestamp": "2026-03-17T01:12:16.200640+00:00",
   "repo": "yaron-zehavi/oauth-native-clients-federation",
   "labels": [
     {
@@ -63,6 +63,22 @@
       "body": "Hi,\n\nI think it should say `deep_link` here.\n\nhttps://github.com/yaron-zehavi/oauth-native-clients-federation/blob/04f2a01dad8e0fc309b9cc7b6b04a33d731c5453/draft-zehavi-oauth-native-clients-federation.md?plain=1#L214",
       "createdAt": "2026-03-10T10:33:18Z",
       "updatedAt": "2026-03-10T10:33:18Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDORSZN3c7zO1qi",
+      "title": "insufficient_information needs a warning/prohibition about use with passwords/otps with third party apps",
+      "url": "https://github.com/yaron-zehavi/oauth-native-clients-federation/issues/2",
+      "state": "OPEN",
+      "author": "jogu",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The `insufficient_information` response is really quite generic and open to potential abuse:\n\nhttps://www.ietf.org/archive/id/draft-zehavi-oauth-native-clients-federation-01.html#name-additional-information-requ\n\ne.g. if a password was requested it's kind of reinvented the resource open password credentials, and there'd be similar concerns with a third party app asking the user for an otp.\n\nI think it should likely prohibit use of it for anything other than information necessary to identity the user and their applicable authorization server, with actual authentication not being allowed. Or something like that - not sure exactly what is the correct nuance.",
+      "createdAt": "2026-03-16T07:33:55Z",
+      "updatedAt": "2026-03-16T08:13:05Z",
       "closedAt": null,
       "comments": []
     }
