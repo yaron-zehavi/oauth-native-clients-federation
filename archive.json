@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-17T01:12:16.200640+00:00",
+  "timestamp": "2026-03-19T01:15:57.125751+00:00",
   "repo": "yaron-zehavi/oauth-native-clients-federation",
   "labels": [
     {
@@ -55,16 +55,24 @@
       "id": "I_kwDORSZN3c7xc0k9",
       "title": "Redirect to app should use deep link",
       "url": "https://github.com/yaron-zehavi/oauth-native-clients-federation/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Mawdie",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Hi,\n\nI think it should say `deep_link` here.\n\nhttps://github.com/yaron-zehavi/oauth-native-clients-federation/blob/04f2a01dad8e0fc309b9cc7b6b04a33d731c5453/draft-zehavi-oauth-native-clients-federation.md?plain=1#L214",
       "createdAt": "2026-03-10T10:33:18Z",
-      "updatedAt": "2026-03-10T10:33:18Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2026-03-17T11:47:54Z",
+      "closedAt": "2026-03-17T11:47:54Z",
+      "comments": [
+        {
+          "author": "yaron-zehavi",
+          "authorAssociation": "OWNER",
+          "body": "Right you are!\nThanks for noticing and letting me know.\nOut of curiosity, may I ask what's your interest in this draft? Do you have a use case for it?\nDo you have additional feedback?",
+          "createdAt": "2026-03-17T11:47:54Z",
+          "updatedAt": "2026-03-17T11:47:54Z"
+        }
+      ]
     },
     {
       "number": 2,
@@ -78,9 +86,31 @@
       "labels": [],
       "body": "The `insufficient_information` response is really quite generic and open to potential abuse:\n\nhttps://www.ietf.org/archive/id/draft-zehavi-oauth-native-clients-federation-01.html#name-additional-information-requ\n\ne.g. if a password was requested it's kind of reinvented the resource open password credentials, and there'd be similar concerns with a third party app asking the user for an otp.\n\nI think it should likely prohibit use of it for anything other than information necessary to identity the user and their applicable authorization server, with actual authentication not being allowed. Or something like that - not sure exactly what is the correct nuance.",
       "createdAt": "2026-03-16T07:33:55Z",
-      "updatedAt": "2026-03-16T08:13:05Z",
+      "updatedAt": "2026-03-17T12:56:36Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "yaron-zehavi",
+          "authorAssociation": "OWNER",
+          "body": "Thanks Joseph!\nI appreciate your feedback.\n\nI think the issue you mention arises mostly from **free text inputs**, when (rogue) AS controls **title, hint and description**.\nA possible solution would be to normatively specify an allow-list of free text input **types**, with clients rejecting anything not on the list. For these types fixed **title, hint and description** shall be defined, which clients may override for localization purposes.\n\nAt first propose to include **email & phone** as only free text input types.\nOther use-cases may extend in future using profiles.",
+          "createdAt": "2026-03-17T12:04:19Z",
+          "updatedAt": "2026-03-17T12:34:46Z"
+        },
+        {
+          "author": "jogu",
+          "authorAssociation": "NONE",
+          "body": "I think just email & phone to start with makes sense and avoids the issue. I think I'd still add a statement along the lines 'For third party apps, this mechanism MUST NOT be extended to request user credentials like passwords, OTPs, etc'.\n\nThe problem isn't just rogue ASes - it's generally a bad pattern for the user to enter their password into a third party app (because it means the third party app has access to the user's password, which is/can be a far more powerful credential than the access token we're trying to give them), and an even worse pattern for the AS to actually be encouraging it. i.e. same reason we use in-app browser tabs instead of web view, same reason resource owner password credentials grant was dropped.",
+          "createdAt": "2026-03-17T12:43:03Z",
+          "updatedAt": "2026-03-17T12:43:03Z"
+        },
+        {
+          "author": "yaron-zehavi",
+          "authorAssociation": "OWNER",
+          "body": "I don't mind adding statements, was rather looking for actionable steps preventing misuse altogether.\n\nThe security considerations of this draft deals with AS considering and perhaps avoiding asking users for sensitive data through a native client who's being federated (I think that's what you mean by third party app?)\nhttps://www.ietf.org/archive/id/draft-zehavi-oauth-native-clients-federation-01.html#name-non-first-party-application\n\nWill consider adding language to insufficient_information response to clarify the matter.\nPlease note draft already defines this response: \"the Authorization Server requires additional user input, _other than an authentication challenge_\".\nIf expanding it, perhaps use the latter part of your sentence: \"...this mechanism MUST NOT be extended to request user credentials like passwords, OTPs, etc\", as your comment is relevant not only for third party apps.\n\nKeep in mind though that not all authentication challenges are sensitive, a fido webauthn credential request, DC presentation request etc are in my view non-sensitive challenges that also a third party app can serve. Do you agree?",
+          "createdAt": "2026-03-17T12:56:36Z",
+          "updatedAt": "2026-03-17T12:56:36Z"
+        }
+      ]
     }
   ],
   "pulls": []
