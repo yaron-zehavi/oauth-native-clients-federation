@@ -481,7 +481,7 @@ insufficient_information response can be used to prompt end-user for free-text i
 
 This mechanism MUST NOT be extended to request sensitive information such as user credentials like passwords, OTPs, etc
 
-To prevent potential misuse this document defines a closed list of permitted free-text inputs (phone, email).
+To prevent potential misuse, this document defines a closed list of permitted free-text inputs (phone, email).
 
 Clients MUST ignore requests for free-text inputs not explicitly defined by this document.
 
