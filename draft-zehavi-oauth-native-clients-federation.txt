@@ -5,8 +5,8 @@
 Web Authorization Protocol                                     Y. Zehavi
 Internet-Draft                             Raiffeisen Bank International
 Intended status: Standards Track                              A. Parecki
-Expires: 1 September 2026                                           Okta
-                                                        28 February 2026
+Expires: 25 October 2026                                            Okta
+                                                           23 April 2026
 
 
     OAuth 2.0 direct interaction for native clients using federation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2026.
+   This Internet-Draft will expire on 25 October 2026.
 
 Copyright Notice
 
@@ -95,6 +95,7 @@ Table of Contents
    5.  Security Considerations
      5.1.  Non First-Party applications of federated authorization
            servers
+     5.2.  Preventing misuse of insufficient_information response
    6.  IANA Considerations
      6.1.  OAuth Parameters Registration
    7.  Normative References
@@ -302,8 +303,8 @@ Table of Contents
 
       "redirect_to_app":  The Authorization Server wishes to fulfill the
          user interaction using another native app.  This response MUST
-         include the _federation_uri_ response parameter.  See
-         Section 4.3.2 for details.
+         include the _deep_link_ response parameter.  See Section 4.3.2
+         for details.
 
       "native_authorization_federate_unsupported":  The authorization
          server intended to federate to a downstream authorization
@@ -403,9 +404,9 @@ Table of Contents
 
 4.3.2.  Redirect to app response
 
-   If the authorization server decides to nominate another native app to
-   interact with end user, it responds with error code _redirect_to_app_
-   and MUST return the _deep_link_ response attribute.
+   If the authorization server nominates another native app to interact
+   with end user, it responds with error code _redirect_to_app_ and MUST
+   return the _deep_link_ response attribute.
 
    Example *redirect_to_app* response:
 
@@ -452,24 +453,18 @@ Table of Contents
       *native_callback_uri* is included among them.
 
    When the client is invoked on its native_callback_uri, the obtained
-   response's audience is:
-
-   *  If client has been federated, the audience is the authorization
-      server which federated the client to the authorization server,
-      which then instructed _redirect_to_app_. See Section 4.3.1 for
-      details.
-
-   *  Otherwise, the audience is the authorization server which then
-      instructed _redirect_to_app_.
+   response's audience is the authorization server which instructed
+   _redirect_to_app_, unless client has been federated in which case the
+   audience is the federating authorization server, in accordance with
+   Section 4.3.1.
 
    Example URI used to invoke of client app on its claimed
    native_callback_uri:
 
    https://client.example.com/cb?authorization_code=uY29tL2F1dGhlbnRpY
 
-   Example client invoking the response_uri *of the authorization server
-   which federated it* to the authorization server, which redirected it
-   to the app:
+   Example handling by client which was federated and therefore invokes
+   the response_uri *of the federating authorization server*:
 
    POST /native-authorization HTTP/1.1
    Host: prev-as.com
@@ -510,9 +505,9 @@ Table of Contents
          o  logo: OPTIONAL.  A string holding a URL or base64-encoded
             image for that selection value.
 
-   *  inputs: OPTIONAL.  A JSON object that defines an input field.
-      Each key is the parameter name to be sent in the response and each
-      value defines the input field:
+   *  inputs: OPTIONAL.  A JSON object that defines free text input
+      fields.  Each key specifies the parameter name to be used for
+      sending the response and it's attributes define the input field:
 
       -  title: OPTIONAL.  A string holding the input's title.
 
@@ -521,6 +516,17 @@ Table of Contents
 
       -  description: OPTIONAL.  A string holding the input's
          description.
+
+   Note:
+
+   *  For security reasons the only permitted *inputs* keys are:
+      *email*, *phone*.
+
+   *  Clients MUST ignore requests for free-text inputs not explicitly
+      defined by this document.
+
+   *  Additional permitted inputs MAY be defined in future by extension
+      profiles.
 
    Example of requesting end-user for 2 multiple-choice inputs:
 
@@ -614,6 +620,17 @@ Table of Contents
    *federating* clients as such and avoid serving them (i.e: client's
    interacting on their behalf) authorization challenges involving
    sensitive data, as these are not first party clients.
+
+5.2.  Preventing misuse of insufficient_information response
+
+   insufficient_information response can be used to prompt end-user for
+   free-text inputs, which MAY be misused to request for sensitive
+   information (username, password, etc).  To prevent such misuse this
+   document defines a closed list of permitted free-text inputs (phone,
+   email).
+
+   Clients MUST ignore requests for free-text inputs not explicitly
+   defined by this document.
 
 6.  IANA Considerations
 
