@@ -1649,7 +1649,7 @@ However we assume closed ecosystems could employ an allowList, and open ecosyste
               <p id="section-4.3.2-8.3.1">Inspect client's metadata for redirect_uri's and validate <strong>native_callback_uri</strong> is included among them.<a href="#section-4.3.2-8.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-4.3.2-9">When the client is invoked on its native_callback_uri, the obtained response's audience is the authorization server which instructed <em>redirect_to_app</em>, unless client has been federated in which case the audience is the federating authorization server, in accordance with <a href="#federating-response" class="auto internal xref">Section 4.3.1</a>.<a href="#section-4.3.2-9" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-9">When the client is invoked on its native_callback_uri, the obtained response's audience is the authorization server which instructed <em>redirect_to_app</em>, unless client has been federated, in which case the audience is the federating authorization server, in accordance with <a href="#federating-response" class="auto internal xref">Section 4.3.1</a>.<a href="#section-4.3.2-9" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-10">Example URI used to invoke of client app on its claimed native_callback_uri:<a href="#section-4.3.2-10" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.2-11">
 <pre>
@@ -1854,9 +1854,10 @@ sensitive data, as these are not first party clients.<a href="#section-5.1-1" cl
         <h3 id="name-preventing-misuse-of-insuff">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-preventing-misuse-of-insuff" class="section-name selfRef">Preventing misuse of insufficient_information response</a>
         </h3>
-<p id="section-5.2-1">insufficient_information response can be used to prompt end-user for free-text inputs, which <span class="bcp14">MAY</span> be misused to request for sensitive information (username, password, etc).
-To prevent such misuse this document defines a closed list of permitted free-text inputs (phone, email).<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Clients <span class="bcp14">MUST</span> ignore requests for free-text inputs not explicitly defined by this document.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">insufficient_information response can be used to prompt end-user for free-text inputs.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">This mechanism <span class="bcp14">MUST NOT</span> be extended to request sensitive information such as user credentials like passwords, OTPs, etc<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">To prevent potential misuse this document defines a closed list of permitted free-text inputs (phone, email).<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">Clients <span class="bcp14">MUST</span> ignore requests for free-text inputs not explicitly defined by this document.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
