@@ -339,7 +339,7 @@ However we assume closed ecosystems could employ an allowList, and open ecosyste
   * Add the path /.well-known/openid-federation and perform trust chain resolution.
   * Inspect client's metadata for redirect_uri's and validate **native_callback_uri** is included among them.
 
-When the client is invoked on its native_callback_uri, the obtained response's audience is the authorization server which instructed *redirect_to_app*, unless client has been federated in which case the audience is the federating authorization server, in accordance with {{federating-response}}.
+When the client is invoked on its native_callback_uri, the obtained response's audience is the authorization server which instructed *redirect_to_app*, unless client has been federated, in which case the audience is the federating authorization server, in accordance with {{federating-response}}.
 
 Example URI used to invoke of client app on its claimed native_callback_uri:
 
@@ -477,8 +477,11 @@ sensitive data, as these are not first party clients.
 
 ## Preventing misuse of insufficient_information response
 
-insufficient_information response can be used to prompt end-user for free-text inputs, which MAY be misused to request for sensitive information (username, password, etc).
-To prevent such misuse this document defines a closed list of permitted free-text inputs (phone, email).
+insufficient_information response can be used to prompt end-user for free-text inputs.
+
+This mechanism MUST NOT be extended to request sensitive information such as user credentials like passwords, OTPs, etc
+
+To prevent potential misuse this document defines a closed list of permitted free-text inputs (phone, email).
 
 Clients MUST ignore requests for free-text inputs not explicitly defined by this document.
 
