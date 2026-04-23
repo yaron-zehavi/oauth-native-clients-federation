@@ -211,7 +211,7 @@ by adding the following error codes:
      "redirect_to_app":
      :     The Authorization Server wishes to fulfill the user interaction
            using another native app. This response MUST include the
-           *federation_uri* response parameter.
+           *deep_link* response parameter.
            See {{redirect-to-app-response}} for details.
 
      "native_authorization_federate_unsupported":
@@ -304,7 +304,7 @@ adding previously obtained auth_session:
 
 ### Redirect to app response {#redirect-to-app-response}
 
-If the authorization server decides to nominate another native app to interact with
+If the authorization server nominates another native app to interact with
 end user, it responds with error code *redirect_to_app* and MUST return the
 *deep_link* response attribute.
 
@@ -339,17 +339,13 @@ However we assume closed ecosystems could employ an allowList, and open ecosyste
   * Add the path /.well-known/openid-federation and perform trust chain resolution.
   * Inspect client's metadata for redirect_uri's and validate **native_callback_uri** is included among them.
 
-When the client is invoked on its native_callback_uri, the obtained response's audience is:
-
-* If client has been federated, the audience is the authorization server which federated the client to the authorization server, which then instructed *redirect_to_app*. See {{federating-response}} for details.
-* Otherwise, the audience is the authorization server which then instructed *redirect_to_app*.
+When the client is invoked on its native_callback_uri, the obtained response's audience is the authorization server which instructed *redirect_to_app*, unless client has been federated in which case the audience is the federating authorization server, in accordance with {{federating-response}}.
 
 Example URI used to invoke of client app on its claimed native_callback_uri:
 
     https://client.example.com/cb?authorization_code=uY29tL2F1dGhlbnRpY
 
-Example client invoking the response_uri **of the authorization server which federated it**
-to the authorization server, which redirected it to the app:
+Example handling by client which was federated and therefore invokes the response_uri **of the federating authorization server**:
 
     POST /native-authorization HTTP/1.1
     Host: prev-as.com
@@ -377,11 +373,17 @@ userPrompt:
 
     - name: REQUIRED. A string holding the display name of the selection value.
     - logo: OPTIONAL. A string holding a URL or base64-encoded image for that selection value.
-- inputs: OPTIONAL. A JSON object that defines an input field. Each key is the parameter name to be sent in the response and each value defines the input field:
+- inputs: OPTIONAL. A JSON object that defines free text input fields. Each key specifies the parameter name to be used for sending the response and it's attributes define the input field:
 
   - title: OPTIONAL. A string holding the input's title.
   - hint: OPTIONAL. A string holding the input's hint that is displayed if the input is empty.
   - description: OPTIONAL. A string holding the input's description.
+
+Note:
+
+* For security reasons the only permitted **inputs** keys are: **email**, **phone**.
+* Clients MUST ignore requests for free-text inputs not explicitly defined by this document.
+* Additional permitted inputs MAY be defined in future by extension profiles.
 
 Example of requesting end-user for 2 multiple-choice inputs:
 
@@ -472,6 +474,13 @@ to determine if it should present authorization challenges in federation scenari
 For example, it can label **federating** clients as such and avoid serving them
 (i.e: client's interacting on their behalf) authorization challenges involving
 sensitive data, as these are not first party clients.
+
+## Preventing misuse of insufficient_information response
+
+insufficient_information response can be used to prompt end-user for free-text inputs, which MAY be misused to request for sensitive information (username, password, etc).
+To prevent such misuse this document defines a closed list of permitted free-text inputs (phone, email).
+
+Clients MUST ignore requests for free-text inputs not explicitly defined by this document.
 
 # IANA Considerations
 
