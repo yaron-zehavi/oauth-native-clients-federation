@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-23T01:44:30.772953+00:00",
+  "timestamp": "2026-04-26T01:45:28.153478+00:00",
   "repo": "yaron-zehavi/oauth-native-clients-federation",
   "labels": [
     {
@@ -79,15 +79,15 @@
       "id": "I_kwDORSZN3c7zO1qi",
       "title": "insufficient_information needs a warning/prohibition about use with passwords/otps with third party apps",
       "url": "https://github.com/yaron-zehavi/oauth-native-clients-federation/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jogu",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "The `insufficient_information` response is really quite generic and open to potential abuse:\n\nhttps://www.ietf.org/archive/id/draft-zehavi-oauth-native-clients-federation-01.html#name-additional-information-requ\n\ne.g. if a password was requested it's kind of reinvented the resource open password credentials, and there'd be similar concerns with a third party app asking the user for an otp.\n\nI think it should likely prohibit use of it for anything other than information necessary to identity the user and their applicable authorization server, with actual authentication not being allowed. Or something like that - not sure exactly what is the correct nuance.",
       "createdAt": "2026-03-16T07:33:55Z",
-      "updatedAt": "2026-03-17T12:56:36Z",
-      "closedAt": null,
+      "updatedAt": "2026-04-23T12:11:50Z",
+      "closedAt": "2026-04-23T12:11:50Z",
       "comments": [
         {
           "author": "yaron-zehavi",
@@ -111,6 +111,22 @@
           "updatedAt": "2026-03-17T12:56:36Z"
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDORSZN3c8AAAABASXmKA",
+      "title": "audience of authorization_code from redirect_to_app response",
+      "url": "https://github.com/yaron-zehavi/oauth-native-clients-federation/issues/3",
+      "state": "CLOSED",
+      "author": "yaron-zehavi",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Draft is currently confusing about the audience of authorization_code from redirect_to_app response.\nOriginally it said code should be returned directly to federating AS.\nThen if there's no federation added a comment authorization_code goes to authorization server which instructed redirect_to_app.\n\nI think this should be simplified so that audience of authorization_code is always the last (current) authorization server.\nThis makes the redirect_to_app response equivalent to authorization challenges.",
+      "createdAt": "2026-04-23T07:18:01Z",
+      "updatedAt": "2026-04-23T11:47:58Z",
+      "closedAt": "2026-04-23T11:47:58Z",
+      "comments": []
     }
   ],
   "pulls": []
